@@ -19,8 +19,10 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  if (value === undefined) return 0;
+  if (value === null) return 0;
+  return value.length;
 }
 
 /**
@@ -37,8 +39,10 @@ function getStringLength(/* value */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if (Object.prototype.toString.call(value) === '[object String]') return true;
+  if (typeof value === 'string') return true;
+  return false;
 }
 
 /**
@@ -147,8 +151,12 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const index = str.indexOf(value);
+  if (index !== -1) {
+    return str.substring(0, index) + str.substring(index + value.length);
+  }
+  return str;
 }
 
 /**
@@ -163,8 +171,12 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  const index = str.lastIndexOf(value);
+  if (index !== -1) {
+    return str.substring(0, index) + str.substring(index + value.length);
+  }
+  return str;
 }
 
 /**
@@ -179,8 +191,14 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  if (str === undefined) {
+    return 0;
+  }
+  if (str === null) {
+    return 0;
+  }
+  return str.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
 }
 
 /**
@@ -226,8 +244,15 @@ function endsWith(str, substr) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  const minutesNumber = Number(minutes);
+  const secondsNumber = Number(seconds);
+  let minutesString = minutesNumber.toString();
+  let secondsString = secondsNumber.toString();
+  minutesString = minutesString.padStart(2, '0');
+  secondsString = secondsString.padStart(2, '0');
+  const timeString = `${minutesString}:${secondsString}`;
+  return timeString;
 }
 
 /**
@@ -358,8 +383,10 @@ function reverseWords(str) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  return str.replace(/[A-Za-z]/g, (char) =>
+    char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+  );
 }
 
 /**
